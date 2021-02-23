@@ -24,13 +24,13 @@
 
   <meta name="description" content="最近在优化项目代码的时候，积极【迫真】学习了MATLAB中的built-in reshape函数和其他相关的用法。这些用法对于程序运行速度的提升还是很显著的，所以觉着可以记录一下。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Something-about-the-MATLAB-function-reshape">
+<meta property="og:title" content="Something about the MATLAB function reshape">
 <meta property="og:url" content="http://example.com/2021/02/23/Something-about-the-MATLAB-function-reshape/index.html">
 <meta property="og:site_name" content="Shiningale&#39;s Homepage">
 <meta property="og:description" content="最近在优化项目代码的时候，积极【迫真】学习了MATLAB中的built-in reshape函数和其他相关的用法。这些用法对于程序运行速度的提升还是很显著的，所以觉着可以记录一下。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-02-23T04:32:18.000Z">
-<meta property="article:modified_time" content="2021-02-23T05:27:36.259Z">
+<meta property="article:modified_time" content="2021-02-23T05:32:48.670Z">
 <meta property="article:author" content="Xiaobo Hu">
 <meta name="twitter:card" content="summary">
 
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>Something-about-the-MATLAB-function-reshape | Shiningale's Homepage</title>
+  <title>Something about the MATLAB function reshape | Shiningale's Homepage</title>
   
 
 
@@ -181,7 +181,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Something-about-the-MATLAB-function-reshape
+          Something about the MATLAB function reshape
         </h1>
 
         <div class="post-meta">
@@ -192,7 +192,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-02-23 12:32:18 / Modified: 13:27:36" itemprop="dateCreated datePublished" datetime="2021-02-23T12:32:18+08:00">2021-02-23</time>
+              <time title="Created: 2021-02-23 12:32:18 / Modified: 13:32:48" itemprop="dateCreated datePublished" datetime="2021-02-23T12:32:18+08:00">2021-02-23</time>
             </span>
 
           
@@ -215,7 +215,7 @@
       
         <p>最近在优化项目代码的时候，积极【迫真】学习了MATLAB中的built-in reshape函数和其他相关的用法。这些用法对于程序运行速度的提升还是很显著的，所以觉着可以记录一下。<br><a id="more"></a></p>
 <h1 id="为什么注重矩阵的整体操作？"><a href="#为什么注重矩阵的整体操作？" class="headerlink" title="为什么注重矩阵的整体操作？"></a>为什么注重矩阵的整体操作？</h1><p>MATLAB顾名思义就是矩阵实验室【Matrix Laboratory】。作为Mathworks凭以制霸科学计算界的王牌产品，MATLAB的矩阵操作，或者说向量化计算【Vectorized operation】的性能得到了软件开发人员极致的优化，在MATLAB内部做相互等价的运算，借助向量化计算的方案的运算速度远远快于其他方案。作为一个例子，计算简单的求和</p>
-<script type="math/tex; mode=display">\sum_{i=1}^{114514}i.</script><p>经过测试，沿用大部分程序设计语言思路的循环求和方案<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="number">114514</span></span><br><span class="line">    s = s + <span class="built_in">i</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><br>在MATLAB中会远远慢于其内置的向量化操作方案<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(<span class="number">1</span>:<span class="number">114514</span>);</span><br></pre></td></tr></table></figure><br>这就彰显出了使用MATLAB内置操作的重要性。【人公司毕竟是要靠MATLAB挣钱的，要是我随随便便写个替代算法都比原厂货快的话Mathworks早就倒闭了233333  </p>
+<script type="math/tex; mode=display">\sum_{i=1}^{114514}i.</script><p>经过测试，沿用大部分程序设计语言思路的循环求和方案<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="number">114514</span></span><br><span class="line">    s = s + <span class="built_in">i</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><br>在MATLAB中会远远慢于其内置的向量化操作方案<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(<span class="number">1</span>:<span class="number">114514</span>);</span><br></pre></td></tr></table></figure><br>这就彰显出了使用MATLAB内置操作的重要性。【人公司毕竟是要靠MATLAB挣钱的，要是我这种辣鸡水平随手写个替代算法都能比花几十年优化出来的原厂货快的话Mathworks早就倒闭了233333  </p>
 
     </div>
 
@@ -231,7 +231,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="http://example.com/2021/02/23/Something-about-the-MATLAB-function-reshape/" title="Something-about-the-MATLAB-function-reshape">http://example.com/2021/02/23/Something-about-the-MATLAB-function-reshape/</a>
+    <a href="http://example.com/2021/02/23/Something-about-the-MATLAB-function-reshape/" title="Something about the MATLAB function reshape">http://example.com/2021/02/23/Something-about-the-MATLAB-function-reshape/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
